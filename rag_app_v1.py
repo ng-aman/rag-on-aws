@@ -50,7 +50,11 @@ def get_sessions(table_name):
 
 def get_session_history(session_id, dynamodb_table="SessionTable"):
     history = DynamoDBChatMessageHistory(
-        table_name=dynamodb_table, session_id=session_id
+        table_name=dynamodb_table,
+        session_id=session_id,
+        aws_access_key_id=os.environ["ACCESS_KEY"],
+        aws_secret_access_key=os.environ["SECRET_KEY"],
+        region_name=os.environ["REGION"],
     )
     return history
 
