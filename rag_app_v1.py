@@ -11,6 +11,12 @@ from langchain_community.chat_message_histories.dynamodb import (
 
 load_dotenv()
 
+boto3_session = boto3.Session(
+    aws_access_key_id=os.environ["ACCESS_KEY"],
+    aws_secret_access_key=os.environ["SECRET_KEY"],
+    region_name=os.environ["REGION"],
+)
+
 table_name = "SessionTable"
 dynamodb_client = boto3.client(
     "dynamodb",
@@ -50,11 +56,7 @@ def get_sessions(table_name):
 
 def get_session_history(session_id, dynamodb_table="SessionTable"):
     history = DynamoDBChatMessageHistory(
-        table_name=dynamodb_table,
-        session_id=session_id,
-        aws_access_key_id=os.environ["ACCESS_KEY"],
-        aws_secret_access_key=os.environ["SECRET_KEY"],
-        region_name=os.environ["REGION"],
+        table_name=dynamodb_table, session_id=session_id, boto3_session=boto3_session
     )
     return history
 
