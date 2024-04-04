@@ -72,13 +72,15 @@ seleceted_session = st.sidebar.selectbox("Session Id", sessions, index=None)
 def get_chat_history(session):
     st.sidebar.write(f"current session:  **{session}**")
 
-    history = get_session_history(session_id=session)
+    if session:
+        history = get_session_history(session_id=session)
 
-    if history.messages == []:
-        history.add_ai_message("How may I assist you today?")
+        if history.messages == []:
+            history.add_ai_message("How may I assist you today?")
 
-    for msg in history.messages:
-        st.chat_message(msg.type).write(msg.content)
+        for msg in history.messages:
+            st.chat_message(msg.type).write(msg.content)
+
     if prompt := st.chat_input():
         st.chat_message("human").write(prompt)
         # getting chat response from lambda
