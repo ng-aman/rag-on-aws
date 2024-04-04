@@ -12,23 +12,23 @@ from langchain_community.chat_message_histories.dynamodb import (
 load_dotenv()
 
 boto3_session = boto3.Session(
-    aws_access_key_id=os.environ["ACCESS_KEY"],
-    aws_secret_access_key=os.environ["SECRET_KEY"],
-    region_name=os.environ["REGION"],
+    # aws_access_key_id=os.environ["ACCESS_KEY"],
+    # aws_secret_access_key=os.environ["SECRET_KEY"],
+    # region_name=os.environ["REGION"],
 )
 
 table_name = "SessionTable"
 dynamodb_client = boto3.client(
     "dynamodb",
-    aws_access_key_id=os.environ["ACCESS_KEY"],
-    aws_secret_access_key=os.environ["SECRET_KEY"],
-    region_name=os.environ["REGION"],
+    # aws_access_key_id=os.environ["ACCESS_KEY"],
+    # aws_secret_access_key=os.environ["SECRET_KEY"],
+    # region_name=os.environ["REGION"],
 )
 dynamodb = boto3.resource(
     "dynamodb",
-    aws_access_key_id=os.environ["ACCESS_KEY"],
-    aws_secret_access_key=os.environ["SECRET_KEY"],
-    region_name=os.environ["REGION"],
+    # aws_access_key_id=os.environ["ACCESS_KEY"],
+    # aws_secret_access_key=os.environ["SECRET_KEY"],
+    # region_name=os.environ["REGION"],
 )
 table = dynamodb.Table(table_name)
 
