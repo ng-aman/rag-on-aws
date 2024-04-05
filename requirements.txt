@@ -2,3 +2,4 @@ langchain
 boto3
 opensearch-py
 python-dotenv
+streamlit-google-auth
