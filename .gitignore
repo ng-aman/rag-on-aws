@@ -137,7 +137,6 @@ venv.bak/
 
 # mkdocs documentation
 /site
-/jai_srikanth
 
 # mypy
 .mypy_cache/
@@ -152,7 +151,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-jai_aman/
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
