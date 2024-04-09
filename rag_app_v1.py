@@ -3,6 +3,8 @@ import requests
 import boto3
 import os
 from dotenv import load_dotenv
+from upload_embeddings import main
+from streamlit_local_storage import LocalStorage
 
 import streamlit as st
 from langchain_community.chat_message_histories.dynamodb import (
@@ -61,17 +63,22 @@ def get_session_history(session_id, dynamodb_table="SessionTable"):
     return history
 
 
-with st.sidebar:
-    st.title("RAG ChatBot")
-    st.subheader("With Memory :brain:")
-sessions = get_sessions("SessionTable")
-new_session = st.sidebar.chat_input("New session name")
-seleceted_session = st.sidebar.selectbox("Session Id", sessions, index=None)
+# with st.sidebar:
+#     st.title("RAG ChatBot")
+#     st.subheader("With Memory :brain:")
+#     main()
+# sessions = get_sessions("SessionTable")
+# st.sidebar.write("**Start New session**")
+# new_session = st.sidebar.chat_input("New session name")
+# seleceted_session = st.sidebar.selectbox("**Session Id**", sessions, index=None)
 
+# users = os.environ["USERS"]
 
 def get_chat_history(session):
     st.sidebar.write(f"current session:  **{session}**")
-
+    if st.sidebar.button("logout"):
+        LocalStorage().deleteItem("logs")
+        st.session_state.clear() 
     if session:
         history = get_session_history(session_id=session)
 
@@ -92,14 +99,23 @@ def get_chat_history(session):
 
 # create session state to store session ids in order to avoid sending none values to get_chat_history
 
-if "session" not in st.session_state:
-    st.session_state["session"] = None
+def rag_app_v1():
+    with st.sidebar:
+        st.title("RAG ChatBot")
+        st.subheader("With Memory :brain:")
+        main()
+    sessions = get_sessions("SessionTable")
+    st.sidebar.write("**Start New session**")
+    new_session = st.sidebar.chat_input("New session name")
+    seleceted_session = st.sidebar.selectbox("**Session Id**", sessions, index=None)
+    if "session" not in st.session_state:
+        st.session_state["session"] = None
 
-if new_session:
-    st.session_state["session"] = new_session
-elif seleceted_session:
-    st.session_state["session"] = seleceted_session
+    if new_session:
+        st.session_state["session"] = new_session
+    elif seleceted_session:
+        st.session_state["session"] = seleceted_session
 
-# calling get_chat_history
+    # calling get_chat_history
 
-get_chat_history(st.session_state["session"])
+    get_chat_history(st.session_state["session"])
