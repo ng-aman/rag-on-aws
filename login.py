@@ -25,5 +25,5 @@ try:
         rag_app_v1()
     else:
         show_login_page()
-except:
-    show_login_page()
+except Exception as e:
+    st.exception(e)
