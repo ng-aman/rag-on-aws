@@ -20,10 +20,11 @@ def show_login_page():
     st.button ("Login", on_click=LoggedIn_Clicked, args= (userName, password))
 
 get_token = LocalStorage().getItem("logs")
+
 try:
-    if get_token.keys():
-        rag_app_v1()
-    else:
+    if get_token is None:
         show_login_page()
+    else:
+        rag_app_v1()
 except Exception as e:
     st.exception(e)
