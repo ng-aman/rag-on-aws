@@ -1,10 +1,15 @@
 import streamlit as st
 import boto3
-import re
+import re,os
 import time
 
 s3_bucket= 'genai-rag-on-aws'
-s3_client = boto3.client('s3')
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id=os.environ["ACCESS_KEY"],
+    aws_secret_access_key=os.environ["SECRET_KEY"],
+    region_name=os.environ["REGION"],
+    )
 
 st.title('Opensearch DB file upload')
 
