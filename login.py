@@ -24,7 +24,7 @@ get_token = LocalStorage().getItem("logs")
 try:
     if get_token is None:
         show_login_page()
-    else:
+    if get_token is not None:
         rag_app_v1()
 except Exception as e:
     st.exception(e)
