@@ -17,14 +17,15 @@ def LoggedIn_Clicked(userName,password):
 def show_login_page():
     userName = st.text_input (label="Email", value="", placeholder="Enter your user name")
     password = st.text_input (label="Password", value="",placeholder="Enter password", type="password")
-    st.button ("Login", on_click=LoggedIn_Clicked, args= (userName, password))
+    if st.button("Login"):
+            LoggedIn_Clicked(userName,password)
 
 get_token = LocalStorage().getItem("logs")
 
 try:
     if get_token is None:
         show_login_page()
-    if get_token is not None:
+    else:
         rag_app_v1()
 except Exception as e:
     st.exception(e)
